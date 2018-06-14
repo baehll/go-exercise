@@ -14,7 +14,6 @@ var palette = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}, col
 
 const (
 	blackIndex = 0
-	greenIndex = 1
 )
 
 func main() {
@@ -22,6 +21,7 @@ func main() {
 }
 
 func lissajous(out io.Writer) {
+	var randomColor = uint8(rand.Intn(len(palette)))
 	const (
 		cycles = 5
 		res = 0.001
@@ -39,7 +39,7 @@ func lissajous(out io.Writer) {
 		for t := 0.0; t < cycles*2*math.Pi; t += res{
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size + int(x*size+0.5), size + int(y*size+0.5), uint8(rand.Intn(len(palette))))
+			img.SetColorIndex(size + int(x*size+0.5), size + int(y*size+0.5), randomColor)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
